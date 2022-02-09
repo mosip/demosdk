@@ -4,6 +4,8 @@ name: Maven Package upon a push
 on:
   push:
     branches:
+      - '!release-branch'
+      - release-1*
       - master
       - 1.0.*
       - develop
