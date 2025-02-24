@@ -28,10 +28,10 @@
 
 	<developers>
 		<developer>
-			<name>Mosip</name>
+			<name>mosip</name>
 			<email>mosip.emailnotifier@gmail.com</email>
-			<organization>io.mosip</organization>
-			<organizationUrl>https://github.com/mosip/demosdk</organizationUrl>
+			<organization>MOSIP</organization>
+			<organizationUrl>https://www.mosip.io</organizationUrl>
 		</developer>
 	</developers>
 
