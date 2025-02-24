@@ -30,8 +30,8 @@
 		<developer>
 			<name>Mosip</name>
 			<email>mosip.emailnotifier@gmail.com</email>
-			<organization>MOSIP</organization>
-			<organizationUrl>www.mosip.io</organizationUrl>
+			<organization>io.mosip</organization>
+			<organizationUrl>https://github.com/mosip/demosdk</organizationUrl>
 		</developer>
 	</developers>
 
