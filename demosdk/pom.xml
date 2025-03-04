@@ -5,9 +5,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<scm>
-		<connection>scm:git:git://github.com/mosip/mosip-ref-impl.git</connection>
-		<developerConnection>scm:git:ssh://github.com:mosip/mosip-ref-impl.git</developerConnection>
-		<url>https://github.com/mosip/mosip-ref-impl</url>
+		<connection>scm:git:git://github.com/mosip/demosdk.git</connection>
+		<developerConnection>scm:git:ssh://github.com:mosip/demosdk.git</developerConnection>
+		<url>https://github.com/mosip/demosdk</url>
 		<tag>HEAD</tag>
 	</scm>
 
@@ -17,7 +17,7 @@
 	<name>demosdk-client</name>
 
 	<description>Sample implementation of demo SDK client</description>
-	<url>https://github.com/mosip/mosip-ref-impl</url>
+	<url>https://github.com/mosip/demosdk</url>
 
 	<licenses>
 		<license>
@@ -30,8 +30,8 @@
 		<developer>
 			<name>Mosip</name>
 			<email>mosip.emailnotifier@gmail.com</email>
-			<organization>io.mosip</organization>
-			<organizationUrl>https://github.com/mosip/mosip-ref-impl</organizationUrl>
+			<organization>MOSIP</organization>
+			<organizationUrl>www.mosip.io</organizationUrl>
 		</developer>
 	</developers>
 
