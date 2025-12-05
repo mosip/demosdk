@@ -1,0 +1,105 @@
+================================================================================
+COPYRIGHT NOTICES
+================================================================================
+
+This software incorporates components from the projects listed below. The
+original copyright notices have been preserved in accordance with the terms
+of their respective licenses:
+
+MOSIP demosdk
+  Copyright (c) 2024 International Institute of Information Technology,
+  Bangalore (IIIT-B) / MOSIP
+  Licensed under the Mozilla Public License 2.0
+
+Spring Framework & Spring Boot
+  (includes: spring-web, spring-boot-test-autoconfigure, spring-security-test)
+  Copyright © 2002-present the original author or authors
+  Copyright © 2002-2024 Pivotal Software, Inc.
+  Copyright © 2002-2024 VMware, Inc. or its affiliates
+  Licensed under the Apache License, Version 2.0
+
+Jackson JSON Processor
+  (includes: jackson-databind, jackson-dataformat-xml, jackson-module-jaxb-annotations)
+  Copyright © 2007-present Tatu Saloranta (tatu.saloranta@iki.fi)
+  Copyright © 2008-2019 FasterXML, LLC
+  Licensed under the Apache License, Version 2.0
+
+Google Gson
+  Copyright © 2008 Google Inc.
+  (Also includes contributions from: The Gson authors, Android Open Source Project)
+  Licensed under the Apache License, Version 2.0
+
+JSON.simple
+  Copyright © 2006 Yidong Fang
+  Licensed under the Apache License, Version 2.0
+
+Apache Commons Lang
+  Copyright © 2001-2025 The Apache Software Foundation
+  Licensed under the Apache License, Version 2.0
+
+Apache Commons Codec
+  Copyright © 2002-2025 The Apache Software Foundation
+  Licensed under the Apache License, Version 2.0
+
+Apache HttpClient
+  Copyright © 1999-2021 The Apache Software Foundation
+  Licensed under the Apache License, Version 2.0
+
+MOSIP Kernel Libraries
+  (includes: kernel-core, kernel-bom, kernel-demographics-api, kernel-logger-logback)
+  Copyright (c) 2024 International Institute of Information Technology,
+  Bangalore (IIIT-B) / MOSIP
+  Licensed under the Mozilla Public License 2.0
+
+Project Lombok
+  Copyright © 2009-2021 The Project Lombok Authors
+  Licensed under the MIT License
+
+JUnit 4
+  Copyright © 2002-2025 JUnit. All Rights Reserved
+  Licensed under the Eclipse Public License 1.0
+
+SLF4J
+  (includes: jul-to-slf4j, jcl-over-slf4j)
+  Copyright © 2004-2025 QOS.ch. All rights reserved
+  Licensed under the MIT License
+
+Spring Boot Maven Plugin
+  Copyright © 2012-2024 VMware, Inc.
+  Licensed under the Apache License, Version 2.0
+
+git-commit-id-plugin
+  Copyright © 2010 Konrad "ktoso" Malawski
+  Licensed under the GNU Lesser General Public License v3.0
+
+Apache Maven Compiler Plugin
+  Copyright © 2001-2024 The Apache Software Foundation
+  Licensed under the Apache License, Version 2.0
+
+Apache Maven GPG Plugin
+  Copyright © 2005-2024 The Apache Software Foundation
+  Licensed under the Apache License, Version 2.0
+
+Apache Maven Source Plugin
+  Copyright © 2002-2024 The Apache Software Foundation
+  Licensed under the Apache License, Version 2.0
+
+Apache Maven Deploy Plugin
+  Copyright © 2004-2024 The Apache Software Foundation
+  Licensed under the Apache License, Version 2.0
+
+Apache Maven Javadoc Plugin
+  Copyright © 2004-2024 The Apache Software Foundation
+  Licensed under the Apache License, Version 2.0
+
+Apache Maven Assembly Plugin
+  Copyright © 2005-2024 The Apache Software Foundation
+  Licensed under the Apache License, Version 2.0
+
+Sonatype Central Publishing Maven Plugin
+  Copyright © 2022-present Sonatype, Inc.
+  Licensed under the Apache License, Version 2.0
+
+For complete license texts, please refer to the respective project homepages
+listed in the package information above.
+================================================================================
