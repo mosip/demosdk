@@ -148,7 +148,8 @@ public class NormalizerV1UnitTest {
         String input = "Hon Hon. HON honHon Hon.";
         String out = normalizer.normalizeName(input, "en", titles);
         // after removing Hon variants, result should be 'honHon' normalized to keep unmatched sequence
-        assertTrue(!out.toLowerCase().contains("hon ") || out.length() >= 0);
+        String normalized = out.trim().toLowerCase();
+        assertTrue("Should not contain 'hon' as separate token", !normalized.matches(".*\\bhon\\b.*"));
     }
 
     @Test

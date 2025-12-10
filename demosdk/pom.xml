@@ -62,8 +62,8 @@
 		<maven.compiler.target>21</maven.compiler.target>
 		<jacoco.maven.plugin.version>0.8.11</jacoco.maven.plugin.version>
 		<central.publishing.maven.plugin.version>0.7.0</central.publishing.maven.plugin.version>
-        <maven.surefire.plugin.version>2.22.0</maven.surefire.plugin.version>
-        <sonar.coverage.exclusions>**/config/**,</sonar.coverage.exclusions>
+        <maven.surefire.plugin.version>3.5.4</maven.surefire.plugin.version>
+        <sonar.coverage.exclusions>**/config/**</sonar.coverage.exclusions>
         <sonar.cpd.exclusions>**/config/**</sonar.cpd.exclusions>
         <maven.sonar.plugin.version>3.7.0.1746</maven.sonar.plugin.version>
 
