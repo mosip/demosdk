@@ -8,7 +8,7 @@ import org.junit.Test;
 public class TextMatcherUtilTest {
 
     @Test
-    public void testPhoneticsMatch_identicalStrings_returnsPositiveMultipleOf20() throws EncoderException {
+    public void testPhoneticsMatchIdenticalStringsReturnsPositiveMultipleOf20() throws EncoderException {
         Integer v = TextMatcherUtil.phoneticsMatch("John", "John", "english");
         assertNotNull(v);
         assertTrue(v > 0);
@@ -17,7 +17,7 @@ public class TextMatcherUtilTest {
     }
 
     @Test
-    public void testPhoneticsMatch_differentStrings_returnsValueInExpectedRange() throws EncoderException {
+    public void testPhoneticsMatchDifferentStringsReturnsValueInExpectedRange() throws EncoderException {
         Integer v1 = TextMatcherUtil.phoneticsMatch("John", "John", "english");
         Integer v2 = TextMatcherUtil.phoneticsMatch("John", "Doe", "english");
         assertNotNull(v1);
@@ -29,7 +29,7 @@ public class TextMatcherUtilTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testPhoneticsMatch_nullInputs_throws() throws EncoderException {
+    public void testPhoneticsMatchNullInputsThrows() throws EncoderException {
         TextMatcherUtil.phoneticsMatch(null, null, null);
     }
 }

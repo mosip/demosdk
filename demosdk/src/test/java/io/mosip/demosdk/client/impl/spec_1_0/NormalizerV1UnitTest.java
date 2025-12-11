@@ -36,7 +36,7 @@ public class NormalizerV1UnitTest {
     }
 
     @Test
-    public void testRemoveTitlesAndNormalizeName_basic() {
+    public void testRemoveTitlesAndNormalizeNameBasic() {
         Map<String, List<String>> titles = new HashMap<>();
         List<String> enTitles = new ArrayList<>();
         enTitles.add("Mr");
@@ -50,7 +50,7 @@ public class NormalizerV1UnitTest {
     }
 
     @Test
-    public void testNormalizeAddress_withPatternReplacement() {
+    public void testNormalizeAddressWithPatternReplacement() {
         // configure environment to return a pattern replacement for first key
         when(env.getProperty("ida.demo.address.normalization.regex.en[0]")).thenReturn("\\d+=#");
         when(env.getProperty("ida.norm.sep", "=")).thenReturn("=");
@@ -63,7 +63,7 @@ public class NormalizerV1UnitTest {
 
 
     @Test
-    public void testGetBasicNormalisers_multiplePatterns() {
+    public void testGetBasicNormalisersMultiplePatterns() {
         // provide two patterns: first with sep and replacement, second without sep
         when(env.getProperty("ida.demo.name.normalization.regex.en[0]")).thenReturn("foo=#");
         when(env.getProperty("ida.demo.name.normalization.regex.en[1]")).thenReturn("bar");
@@ -83,7 +83,7 @@ public class NormalizerV1UnitTest {
     }
 
     @Test
-    public void testGetBasicNormalisers_address_emptyReplacement_and_normalizeAddress() {
+    public void testGetBasicNormalisersAddressEmptyReplacementAndNormalizeAddress() {
         // pattern with sep but empty replacement
         when(env.getProperty("ida.demo.address.normalization.regex.en[0]")).thenReturn("\\d+=");
         when(env.getProperty("ida.norm.sep", "=")).thenReturn("=");
@@ -105,7 +105,7 @@ public class NormalizerV1UnitTest {
     }
 
     @Test
-    public void testNormalizeName_with_common_and_any_patterns() {
+    public void testNormalizeNameWithCommonAndAnyPatterns() {
         // configure patterns across name and common to ensure normalizeWithCommonAttributes merges them
         when(env.getProperty("ida.demo.name.normalization.regex.en[0]")).thenReturn("john=J");
         when(env.getProperty("ida.demo.name.normalization.regex.any[0]")).thenReturn("doe=D");
@@ -119,7 +119,7 @@ public class NormalizerV1UnitTest {
     }
 
     @Test
-    public void testNormalizeName_removeAllCases_variousCasingsAndPunctuation() {
+    public void testNormalizeNameRemoveAllCasesVariousCasingsAndPunctuation() {
         Map<String, List<String>> titles = new HashMap<>();
         List<String> enTitles = new ArrayList<>();
         enTitles.add("Mr");
@@ -137,7 +137,7 @@ public class NormalizerV1UnitTest {
     }
 
     @Test
-    public void testNormalizeName_removeAllCases_repeatedOccurrences() {
+    public void testNormalizeNameRemoveAllCasesRepeatedOccurrences() {
         Map<String, List<String>> titles = new HashMap<>();
         List<String> enTitles = new ArrayList<>();
         enTitles.add("Hon");
@@ -153,7 +153,7 @@ public class NormalizerV1UnitTest {
     }
 
     @Test
-    public void testNormalize_handlesZeroLengthRegexMatch_breaksLoop() {
+    public void testNormalizeHandlesZeroLengthRegexMatchBreaksLoop() {
         // Configure a regex that matches empty string (start anchor) with replacement 'X'
         // use a valid zero-length-start regex '^' with replacement
         when(env.getProperty("ida.demo.name.normalization.regex.en[0]")).thenReturn("^=X");
@@ -166,7 +166,7 @@ public class NormalizerV1UnitTest {
     }
 
     @Test
-    public void testRemoveAllCases_coversOriginalLowerUpperIndexes() {
+    public void testRemoveAllCasesCoversOriginalLowerUpperIndexes() {
         // Prepare titles list with one title
         Map<String, List<String>> titles = new HashMap<>();
         List<String> enTitles = new ArrayList<>();
