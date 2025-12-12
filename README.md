@@ -15,19 +15,6 @@ It includes:
 This SDK is referenced by **ID-Authentication**, available here:  
  https://github.com/mosip/id-authentication/tree/master/authentication
 
-## Local Setup
-
-The project can be set up in two ways:
-
-1. [Local Setup (for Development or Contribution)](#local-setup-for-development-or-contribution)
-
-### Prerequisites
-
-Before you begin, ensure you have the following installed:
-
-- **JDK**: 21.0.3
-- **Maven**: 3.9.6
-
 ## Installation
 
 ### Local Setup (for Development or Contribution)
@@ -55,15 +42,13 @@ To include Demo SDK in your Maven project:
 <dependency>
     <groupId>io.mosip.demosdk</groupId>
     <artifactId>demosdk</artifactId>
-    <version>1.3.0</version>
+    <version>1.3.0</version><!-- use latest released version -->
 </dependency>
 ```
 
 (Replace **1.3.0** with the appropriate released version.)
 
 For detailed usage examples and integration steps, refer to the **ID-Authentication repository**.
-
----
 
 ## Documentation
 
