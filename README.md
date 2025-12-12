@@ -1,7 +1,7 @@
 # MOSIP Demo SDK
 
-[![Maven Package upon a push](https://github.com/mosip/demosdk/actions/workflows/push-trigger.yml/badge.svg?branch=release-1.3.x)](https://github.com/mosip/demosdk/actions/workflows/push-trigger.yml)  
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?branch=release-1.3.x&project=mosip_demosdk&metric=alert_status)](https://sonarcloud.io/dashboard?branch=release-1.3.x&id=mosip_demosdk)
+[![Maven Package upon a push](https://github.com/mosip/demosdk/actions/workflows/push-trigger.yml/badge.svg?branch=master)](https://github.com/mosip/demosdk/actions/workflows/push-trigger.yml)  
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure&project=mosip_demosdk&metric=alert_status)](https://sonarcloud.io/dashboard&id=mosip_demosdk)
 
 ## Overview
 
@@ -45,25 +45,7 @@ cd demosdk
 mvn clean install -Dmaven.javadoc.skip=true -Dgpg.skip=true
 ```
 
-## Setting Up Locally
-
-Follow the steps below to set up and build the Demo SDK.
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/mosip/demosdk.git
-cd demosdk
-```
-
-### 2. Build the project
-
-```bash
-mvn clean install -Dgpg.skip=true
-```
-
 This will compile the SDK and install it into your local Maven repository.
-
 
 ## Usage
 
@@ -73,11 +55,11 @@ To include Demo SDK in your Maven project:
 <dependency>
     <groupId>io.mosip.demosdk</groupId>
     <artifactId>demosdk</artifactId>
-    <version>1.3.x</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
-(Replace **1.3.x** with the appropriate released version.)
+(Replace **1.3.0** with the appropriate released version.)
 
 For detailed usage examples and integration steps, refer to the **ID-Authentication repository**.
 
@@ -88,9 +70,14 @@ For detailed usage examples and integration steps, refer to the **ID-Authenticat
 Additional documentation and design references are available in the main MOSIP documentation portal:  
  https://github.com/mosip/documentation/tree/1.2.0/docs
 
----
+## Contribution & Community
+
+• To learn how you can contribute code to this application, [click here](https://docs.mosip.io/1.2.0/community/code-contributions).
+
+• If you have questions or encounter issues, visit the [MOSIP Community](https://community.mosip.io/) for support.
+
+• For any GitHub issues: [Report here](https://github.com/mosip/demosdk/issues)
 
 ## License
 
-This project is licensed under the **Mozilla Public License 2.0**.  
-See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the [Mozilla Public License 2.0](LICENSE).
