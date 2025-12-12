@@ -71,7 +71,7 @@ To include Demo SDK in your Maven project:
 
 ```xml
 <dependency>
-    <groupId>io.mosip</groupId>
+    <groupId>io.mosip.demosdk</groupId>
     <artifactId>demosdk</artifactId>
     <version>1.3.x</version>
 </dependency>
