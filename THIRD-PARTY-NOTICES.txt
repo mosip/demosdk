@@ -91,13 +91,6 @@ Homepage: http://www.slf4j.org/
 ================================================================================
 
 ================================================================================
-Package: Git Commit ID Maven Plugin
-Version: 3.0.1
-License: GNU Lesser General Public License v3.0
-Homepage: https://github.com/git-commit-id/git-commit-id-maven-plugin
-================================================================================
-
-================================================================================
 Package: Maven GPG Plugin
 Version: 1.5
 License: Apache License 2.0
