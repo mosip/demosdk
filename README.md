@@ -1,50 +1,69 @@
-[![Maven Package upon a push](https://github.com/mosip/demosdk/actions/workflows/push-trigger.yml/badge.svg?branch=release-1.3.x)](https://github.com/mosip/demosdk/actions/workflows/push-trigger.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?branch=release-1.3.x&project=mosip_demosdk&metric=alert_status)](https://sonarcloud.io/dashboard?branch=release-1.3.x&id=mosip_demosdk)
+# MOSIP Demo SDK
 
-
-# Demo SDK
+[![Maven Package upon a push](https://github.com/mosip/demosdk/actions/workflows/push-trigger.yml/badge.svg?branch=master)](https://github.com/mosip/demosdk/actions/workflows/push-trigger.yml)  
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure&project=mosip_demosdk&metric=alert_status)](https://sonarcloud.io/dashboard&id=mosip_demosdk)
 
 ## Overview
-This library is used for demographic authentication in [ID-Authentication](https://github.com/mosip/id-authentication/tree/master/authentication). This SDK have implementations for demographic data match along with the name and address normalizations.
 
-## Table of Contents
+The **Demo SDK** provides core demographic authentication capabilities used by the **ID Authentication subsystem**.  
+It includes:
 
-- [Prerequisites](#prerequisites)
-- [Setting Up Locally](#setting-up-locally)
-- [License](#license)
+- Demographic data matching logic
+- Name and address normalization utilities
+- Support functions required for demographic authentication workflows
 
-## Prerequisites
+This SDK is referenced by **ID-Authentication**, available here:  
+ https://github.com/mosip/id-authentication/tree/master/authentication
 
-Ensure you have the following installed before proceeding:
+## Installation
 
-1. **Java**: Version 21.0.3
-2. **Maven**: For building the project 3.9.6
-3. **Git**: To clone the repository
+### Local Setup (for Development or Contribution)
 
----
+1. Clone the repository:
 
-## Setting Up Locally
-
-### Follow these steps to set up the project on your local environment:
-
-1. **Clone the repository**
-
-Clone the repository from GitHub to your local machine:
-
-```bash
-	git clone https://github.com/mosip/demosdk.git
-	cd demosdk
+```text
+git clone <repo-url>
+cd demosdk
 ```
 
-1. **Build the project**
+2. Build the project:
 
-Use Maven to build the project and resolve dependencies.
-
-```bash
-	mvn clean install -Dgpg.skip=true
+```text
+mvn clean install -Dmaven.javadoc.skip=true -Dgpg.skip=true
 ```
+
+This will compile the SDK and install it into your local Maven repository.
+
+## Usage
+
+It's used as a library dependency in the **ID-Authentication** project.
+To include Demo SDK in your Maven project:
+
+```xml
+<dependency>
+    <groupId>io.mosip.demosdk</groupId>
+    <artifactId>demosdk</artifactId>
+    <version>1.3.0</version><!-- use latest released version -->
+</dependency>
+```
+
+(Replace **1.3.0** with the appropriate released version.)
+
+For detailed usage examples and integration steps, refer to the **ID-Authentication repository**.
+
+## Documentation
+
+Additional documentation and design references are available in the main MOSIP documentation portal:  
+ https://github.com/mosip/documentation/tree/1.2.0/docs
+
+## Contribution & Community
+
+• To learn how you can contribute code to this application, [click here](https://docs.mosip.io/community/code-contributions).
+
+• If you have questions or encounter issues, visit the [MOSIP Community](https://community.mosip.io/) for support.
+
+• For any GitHub issues: [Report here](https://github.com/mosip/demosdk/issues)
 
 ## License
-This project is licensed under the terms of [Mozilla Public License 2.0](LICENSE).
 
----
+This project is licensed under the [Mozilla Public License 2.0](LICENSE).
