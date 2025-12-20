@@ -1,0 +1,43 @@
+THIRD-PARTY NOTICES
+
+This project includes third-party components whose licenses require attribution.
+Only components with NOTICE obligations are listed here.
+
+=====================================================
+ Mozilla Public License 2.0 (MPL-2.0)
+=====================================================
+• MOSIP Kernel Libraries  
+  (kernel-core, kernel-bom, kernel-demographics-api,
+   kernel-logger-logback)
+
+=====================================================
+ MIT License
+=====================================================
+• Project Lombok  
+  (org.projectlombok:lombok)
+
+• SLF4J Bridges  
+  (jul-to-slf4j, jcl-over-slf4j)
+
+=====================================================
+ Eclipse Public License 1.0 / 2.0
+=====================================================
+• JUnit 4  
+  License: EPL-1.0
+
+=====================================================
+ GNU Lesser General Public License v3.0 (LGPL-3.0)
+=====================================================
+• Git Commit ID Maven Plugin  
+  (pl.project13.maven:git-commit-id-plugin)
+
+=====================================================
+ JSON License
+=====================================================
+• JSON.org (if indirectly included via any JSON wrapper)
+
+=====================================================
+
+Full license texts for the above components are available in the `license/`
+directory of this repository.
+
