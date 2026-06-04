@@ -58,7 +58,7 @@ Additional documentation and design references are available in the main MOSIP d
 
 ## Contribution & Community
 
-• To learn how you can contribute code to this application, [click here](https://docs.mosip.io/community/code-contributions).
+• [Learn how to contribute code to MOSIP](https://docs.mosip.io/community/code-contributions).
 
 • If you have questions or encounter issues, visit the [MOSIP Community](https://community.mosip.io/) for support.
 
