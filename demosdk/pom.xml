@@ -13,7 +13,7 @@
 
 	<artifactId>demosdk</artifactId>
 	<groupId>io.mosip.demosdk</groupId>
-	<version>1.2.1-SNAPSHOT</version>
+	<version>1.4.0-SNAPSHOT</version>
 	<name>demosdk-client</name>
 
 	<description>Sample implementation of demo SDK client</description>
@@ -67,15 +67,11 @@
         <sonar.cpd.exclusions>**/config/**</sonar.cpd.exclusions>
         <maven.sonar.plugin.version>5.3.0.6276</maven.sonar.plugin.version>
         <mockito.core.version>5.20.0</mockito.core.version>
-
-
-
-
-
+		
         <!-- Kernel -->
-		<kernel.logger.logback.version>1.2.1-SNAPSHOT</kernel.logger.logback.version>
-		<kernel.core.version>1.2.1-SNAPSHOT</kernel.core.version>
-		<kerne-bom.version>1.2.1-SNAPSHOT</kerne-bom.version>
+		<kernel.logger.logback.version>1.4.0-SNAPSHOT</kernel.logger.logback.version>
+		<kernel.core.version>1.4.0-SNAPSHOT</kernel.core.version>
+		<kerne-bom.version>1.4.0-SNAPSHOT</kerne-bom.version>
 		
 	</properties>
 	
