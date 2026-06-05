@@ -94,7 +94,7 @@ public class ClientV1UnitTest {
 
     @Test
     public void testDoPhoneticsMatchHandlesEncoderException() throws Exception {
-        mockedStatic.when(() -> TextMatcherUtil.phoneticsMatch("x", "y", "en")).thenThrow(new org.apache.commons.codec.EncoderException("boom"));
+        mockedStatic.when(() -> TextMatcherUtil.phoneticsMatch("x", "y", "en")).thenThrow(new EncoderException("boom"));
         int val = client.doPhoneticsMatch("x", "y", "en", new HashMap<>());
         // exception path returns default 0
         assertEquals(0, val);
