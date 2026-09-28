@@ -4,102 +4,233 @@ COPYRIGHT NOTICES
 
 This software incorporates components from the projects listed below. The
 original copyright notices have been preserved in accordance with the terms
-of their respective licenses:
+of their respective licenses. Third-party versions match demosdk/pom.xml
+(Spring Boot 4.1.1 parent).
+
+Copyright lines are copied verbatim from the META-INF/NOTICE or LICENSE file
+shipped inside each resolved JAR. Where a JAR ships no copyright line, the
+holder named in the upstream project's LICENSE file is used and marked
+"(upstream)".
 
 MOSIP demosdk
-  Copyright (c) 2024 International Institute of Information Technology,
+  Copyright (c) International Institute of Information Technology,
   Bangalore (IIIT-B) / MOSIP
-  Licensed under the Mozilla Public License 2.0
+  Licensed under the Mozilla Public License 2.0 (LICENSE)
 
-Spring Framework & Spring Boot
-  (includes: spring-web, spring-boot-test-autoconfigure, spring-security-test)
-  Copyright © 2002-present the original author or authors
-  Copyright © 2002-2024 Pivotal Software, Inc.
-  Copyright © 2002-2024 VMware, Inc. or its affiliates
-  Licensed under the Apache License, Version 2.0
-
-Jackson JSON Processor
-  (includes: jackson-databind, jackson-dataformat-xml, jackson-module-jaxb-annotations)
-  Copyright © 2007-present Tatu Saloranta (tatu.saloranta@iki.fi)
-  Copyright © 2008-2019 FasterXML, LLC
-  Licensed under the Apache License, Version 2.0
-
-Google Gson
-  Copyright © 2008 Google Inc.
-  (Also includes contributions from: The Gson authors, Android Open Source Project)
-  Licensed under the Apache License, Version 2.0
-
-JSON.simple
-  Copyright © 2006 Yidong Fang
-  Licensed under the Apache License, Version 2.0
-
-Apache Commons Lang
-  Copyright © 2001-2025 The Apache Software Foundation
-  Licensed under the Apache License, Version 2.0
-
-Apache Commons Codec
-  Copyright © 2002-2025 The Apache Software Foundation
-  Licensed under the Apache License, Version 2.0
-
-Apache HttpClient
-  Copyright © 1999-2021 The Apache Software Foundation
-  Licensed under the Apache License, Version 2.0
-
-MOSIP Kernel Libraries
-  (includes: kernel-core, kernel-bom, kernel-demographics-api, kernel-logger-logback)
-  Copyright (c) 2024 International Institute of Information Technology,
+MOSIP Kernel Core (io.mosip.kernel:kernel-core)
+  Includes the demographics SPI (IDemoApi, IDemoNormalizer) and Logfactory.
+  Copyright (c) International Institute of Information Technology,
   Bangalore (IIIT-B) / MOSIP
-  Licensed under the Mozilla Public License 2.0
+  Licensed under the Mozilla Public License 2.0 (licenses/MPL-2.0.txt)
 
-Project Lombok
-  Copyright © 2009-2021 The Project Lombok Authors
-  Licensed under the MIT License
+Spring Framework 7.0.9
+  (spring-context, spring-core, spring-beans, spring-aop, spring-expression,
+   spring-web, spring-webmvc, spring-tx, spring-jdbc, spring-orm, spring-aspects)
+  Copyright (c) 2002-2026 Pivotal, Inc.
+  Repackaged ASM:       Copyright (c) 2000-2011 INRIA, France Telecom
+  Repackaged Objenesis: Copyright 2006-2026 Joe Walnes, Henri Tremblay, Leonardo Mesquita
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
 
-JUnit 4
-  Copyright © 2002-2025 JUnit. All Rights Reserved
-  Licensed under the Eclipse Public License 1.0
+Spring Boot 4.1.1
+  Copyright (c) 2012-2026 VMware, Inc.
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
 
-SLF4J
-  (includes: jul-to-slf4j, jcl-over-slf4j)
-  Copyright © 2004-2025 QOS.ch. All rights reserved
-  Licensed under the MIT License
+Spring Data 4.1.1 (spring-data-commons, spring-data-jpa)
+  Copyright (c) 2010-2026 Pivotal Software, Inc.
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
 
-Spring Boot Maven Plugin
-  Copyright © 2012-2024 VMware, Inc.
-  Licensed under the Apache License, Version 2.0
+Spring Retry 2.0.13
+  Copyright (c) 2006-2023 the original author or authors.
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
 
-git-commit-id-plugin
-  Copyright © 2010 Konrad "ktoso" Malawski
-  Licensed under the GNU Lesser General Public License v3.0
+Spring Security 7.1.1 / Spring Cloud Context 5.0.3
+  Copyright (c) 2002-present the original author or authors (upstream)
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
 
-Apache Maven Compiler Plugin
-  Copyright © 2001-2024 The Apache Software Foundation
-  Licensed under the Apache License, Version 2.0
+Apache Commons Codec 1.22.1
+  Copyright 2002-2026 The Apache Software Foundation
+  This product includes software developed at
+  The Apache Software Foundation (https://www.apache.org/).
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
 
-Apache Maven GPG Plugin
-  Copyright © 2005-2024 The Apache Software Foundation
-  Licensed under the Apache License, Version 2.0
+Apache Commons Lang 3.20.0
+  Copyright 2001-2025 The Apache Software Foundation
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
 
-Apache Maven Source Plugin
-  Copyright © 2002-2024 The Apache Software Foundation
-  Licensed under the Apache License, Version 2.0
+Apache Commons IO 2.22.0
+  Copyright 2002-2026 The Apache Software Foundation
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
 
-Apache Maven Deploy Plugin
-  Copyright © 2004-2024 The Apache Software Foundation
-  Licensed under the Apache License, Version 2.0
+Apache Commons Logging 1.3.6
+  Copyright 2001-2026 The Apache Software Foundation
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
 
-Apache Maven Javadoc Plugin
-  Copyright © 2004-2024 The Apache Software Foundation
-  Licensed under the Apache License, Version 2.0
+Apache Commons Math 3.6.1
+  Copyright 2001-2016 The Apache Software Foundation (upstream)
+  Includes: Copyright (c) 2004, Ernst Hairer;
+            Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura;
+            Copyright (c) 2008, Frances Y. Kuo and Stephen Joe
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
 
-Apache Maven Assembly Plugin
-  Copyright © 2005-2024 The Apache Software Foundation
-  Licensed under the Apache License, Version 2.0
+Apache Tomcat 11.0.24 (tomcat-embed-core, -el, -websocket, tomcat-annotations-api)
+  Copyright 1999-2026 The Apache Software Foundation
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
 
-Sonatype Central Publishing Maven Plugin
-  Copyright © 2022-present Sonatype, Inc.
-  Licensed under the Apache License, Version 2.0
+Apache HttpComponents
+  httpclient 4.5.14:  Copyright 1999-2022 The Apache Software Foundation
+  httpcore 4.4.16:    Copyright 2005-2022 The Apache Software Foundation
+  httpclient5 5.6.4:  Copyright 1999-2021 The Apache Software Foundation
+  httpcore5 5.4.3:    Copyright 2005-2021 The Apache Software Foundation
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
 
-For complete license texts, please refer to the respective project homepages
-listed in the package information above.
-================================================================================
+Apache Log4j 2.25.5 (log4j-api, log4j-core, log4j-to-slf4j)
+  Copyright 1999-2026 The Apache Software Foundation
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
+
+Apache Velocity Engine 2.4.1
+  Copyright 2000-2024 The Apache Software Foundation
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
+
+Apache PDFBox 2.0.37 (pdfbox, fontbox, pdfbox-tools, pdfbox-debugger) / XmpBox 2.0.24
+  Copyright 2002-2026 The Apache Software Foundation
+  (fontbox: Copyright 2008-2026 The Apache Software Foundation;
+   xmpbox:  Copyright 2002-2021 The Apache Software Foundation)
+  Includes: Copyright 1990-2009 Adobe Systems Incorporated
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
+
+Jackson 2.21.5 / 3.1.5 (jackson-core, jackson-databind, jackson-annotations,
+jackson-datatype-jsr310, jackson-module-afterburner) and ClassMate 1.7.3
+  Copyright 2007-, Tatu Saloranta (tatu.saloranta@iki.fi)
+  jackson-core includes FastDoubleParser:
+    Copyright (c) 2023 Werner Randelshofer, Switzerland. MIT License.
+    Copyright 2018-2020 Raffaello Giulietti
+  jackson-module-afterburner includes ASM: Copyright (c) 2000-2011 INRIA, France Telecom
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
+
+Hibernate ORM 7.4.5 / Hibernate Validator 9.1.3
+  Copyright Red Hat, Inc. and Hibernate Authors (upstream)
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
+
+Google Guava 33.7.1
+  Copyright (C) The Guava Authors (upstream)
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
+
+Micrometer 1.17.1 / Micrometer Tracing 1.7.1 / Context Propagation 1.2.1
+  Copyright (c) 2017-Present VMware, Inc. All Rights Reserved.
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
+
+Brave 6.3.1
+  Copyright The OpenZipkin Authors (upstream)
+  Includes: Copyright (C) 2008 The Guava Authors; Copyright (C) 2010 Google Inc.
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
+
+HdrHistogram 2.2.2
+  Copyright (c) 2012, 2013, 2014, 2015, 2016 Gil Tene
+  Copyright (c) 2014 Michael Barker
+  Copyright (c) 2014 Matt Warren
+  Released to the public domain / BSD 2-Clause (licenses/BSD-2-Clause.txt)
+
+Byte Buddy 1.18.11
+  Copyright 2014 - Present Rafael Winterhalter
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
+
+Objenesis 3.3 (test)
+  Copyright 2006-2022 Joe Walnes, Henri Tremblay, Leonardo Mesquita
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
+
+OWASP Java Encoder 1.4.0
+  Copyright (c) 2015 Jeff Ichnowski
+  Licensed under the BSD 3-Clause License (licenses/BSD-3-Clause.txt)
+
+SLF4J 2.0.18 (slf4j-api, jul-to-slf4j, jcl-over-slf4j)
+  Copyright (c) 2004-2022 QOS.ch Sarl (Switzerland)
+  Licensed under the MIT License (licenses/MIT.txt)
+
+Bouncy Castle 1.85 (bcprov, bcpkix, bcutil - jdk18on)
+  Copyright (c) 2000-2026 The Legion of the Bouncy Castle Inc. (https://www.bouncycastle.org).
+  Licensed under the MIT License (licenses/MIT.txt)
+
+jsoup 1.23.2
+  Copyright (c) 2009-2026 Jonathan Hedley <https://jsoup.org/>
+  Licensed under the MIT License (licenses/MIT.txt)
+
+Mockito 5.24.0 (test only)
+  Copyright (c) 2007 Mockito contributors
+  Licensed under the MIT License (licenses/MIT.txt)
+
+ANTLR 4.13.2
+  Copyright (c) 2012-2022 The ANTLR Project. All rights reserved. (upstream)
+  Licensed under the BSD 3-Clause License (licenses/BSD-3-Clause.txt)
+
+Janino 3.1.12 (janino, commons-compiler)
+  Copyright (c) 2001-2010 Arno Unkrig. All rights reserved. (upstream)
+  Copyright (c) 2015-2016 TIBCO Software Inc. All rights reserved. (upstream)
+  Licensed under the BSD 3-Clause License (licenses/BSD-3-Clause.txt)
+
+Hamcrest 3.0
+  Copyright (c) 2000-2024, www.hamcrest.org
+  Licensed under the BSD 3-Clause License (licenses/BSD-3-Clause.txt)
+
+Eclipse JAXB (jakarta.xml.bind-api 4.0.5, jaxb-runtime / jaxb-core / txw2 4.0.9,
+jakarta.activation-api 2.1.4, angus-activation 2.0.3)
+  Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
+  (jakarta.xml.bind-api: Copyright (c) 2017, 2018 Oracle and/or its affiliates.)
+  Licensed under the Eclipse Distribution License 1.0 (licenses/BSD-3-Clause.txt)
+
+javax.xml.bind:jaxb-api 2.3.1 / javax.activation 1.1.1 / javax.activation-api 1.2.0 /
+javax.transaction-api 1.3 / javax.interceptor-api 1.2.2 / com.sun.mail:mailapi 1.6.2
+  Copyright (c) Oracle and/or its affiliates (upstream)
+  Licensed under CDDL 1.1 (licenses/COMMON-DEVLOPMENT-AND-DISTRIBUTION-1.1.txt);
+  MOSIP elects CDDL 1.1 of the CDDL-1.1 OR GPL-2.0-with-CPE dual license.
+
+Jakarta Persistence API 3.2.0
+  Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.
+  Licensed under EPL 2.0 (licenses/EPL-2.0.txt) OR EDL 1.0
+
+Jakarta Annotations 3.0.0 / Jakarta Transactions 2.0.1
+  Copyright (c) Contributors to the Eclipse Foundation (upstream)
+  Licensed under EPL 2.0 (licenses/EPL-2.0.txt) OR GPL-2.0 with Classpath Exception
+
+openhtmltopdf 1.0.10 (openhtmltopdf-core, openhtmltopdf-pdfbox)
+  Copyright (C) 2016 Patrick Wright and others
+  Licensed under the GNU Lesser General Public License 2.1 or later
+
+Mozilla Rhino 1.8.1
+  Copyright Mozilla Foundation and contributors (upstream)
+  Licensed under the Mozilla Public License 2.0 (licenses/MPL-2.0.txt)
+
+ICU4J 78.3
+  Copyright (c) 1991-2025 Unicode, Inc. (upstream)
+  Licensed under the Unicode License v3
+
+Logback 1.5.38 (logback-classic, logback-core)
+  Copyright (C) 1999-2025, QOS.ch. All rights reserved. (upstream)
+  Dual-licensed under EPL 1.0 (licenses/EPL-1.0.txt) OR LGPL 2.1
+
+AspectJ Weaver 1.9.25.1
+  Copyright (c) Contributors to the Eclipse Foundation (upstream)
+  Includes: Copyright (c) 2001 The Apache Software Foundation.
+  Licensed under the Eclipse Public License 2.0 (licenses/EPL-2.0.txt)
+
+JUnit Jupiter 6.1.3 (test) / JUnit 4.13.2
+  Copyright 2015-2025 the original author or authors. (upstream)
+  opentest4j 1.3.0: Copyright 2015-2023 the original author or authors.
+  junit-jupiter-params includes FastCSV: Copyright (c) 2014-2025 Oliver Siegmar
+  Licensed under EPL 2.0 (licenses/EPL-2.0.txt) / EPL 1.0 (licenses/EPL-1.0.txt)
+
+JaCoCo 0.8.15 (build only)
+  Copyright (c) 2009, 2026 Mountainminds GmbH & Co. KG and Contributors (upstream)
+  Includes ASM: Copyright (c) 2000-2011 INRIA, France Telecom
+  Licensed under the Eclipse Public License 2.0 (licenses/EPL-2.0.txt)
+
+git-commit-id-plugin 4.9.10 / sonar-maven-plugin 5.8.0.7211 (build only)
+  Copyright (C) Konrad Malawski and contributors / SonarSource SA (upstream)
+  Licensed under the GNU Lesser General Public License 3.0 (licenses/LGPL-3.0.txt)
+
+Apache Maven plugins (compiler 3.16.0, surefire 3.6.0, jar 3.5.1, source 3.4.0,
+javadoc 3.12.0, gpg 3.2.8, deploy 3.2.0, assembly 3.8.0) and Sonatype
+central-publishing-maven-plugin 0.11.0 (build only)
+  Copyright The Apache Software Foundation / Sonatype, Inc.
+  Licensed under the Apache License, Version 2.0 (licenses/Apache-2.0.txt)
+
+For the complete package list see THIRD-PARTY-NOTICES in the repository root.

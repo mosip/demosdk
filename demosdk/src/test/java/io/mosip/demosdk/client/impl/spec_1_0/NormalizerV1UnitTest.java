@@ -1,185 +1,186 @@
 package io.mosip.demosdk.client.impl.spec_1_0;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.startsWith;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.env.Environment;
 
-import static org.mockito.Mockito.*;
+/**
+ * Unit tests for {@link Normalizer_V_1_0}. The {@link Environment} is mocked and injected into
+ * the private {@code environment} field by {@link InjectMocks}.
+ */
+@ExtendWith(MockitoExtension.class)
+class NormalizerV1UnitTest {
 
-public class NormalizerV1UnitTest {
+	/** Key of the first English name pattern. */
+	private static final String NAME_EN_0 = "ida.demo.name.normalization.regex.en[0]";
 
-    private Normalizer_V_1_0 normalizer;
-    private Environment env;
+	/** Key of the second English name pattern. */
+	private static final String NAME_EN_1 = "ida.demo.name.normalization.regex.en[1]";
 
-    @Before
-    public void setUp() {
-        normalizer = new Normalizer_V_1_0();
-        env = mock(Environment.class);
-        // inject mocked environment via reflection since field is private and autowired
-        try {
-            java.lang.reflect.Field f = Normalizer_V_1_0.class.getDeclaredField("environment");
-            f.setAccessible(true);
-            f.set(normalizer, env);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+	/** Key of the first English address pattern. */
+	private static final String ADDRESS_EN_0 = "ida.demo.address.normalization.regex.en[0]";
 
-    @Test
-    public void testRemoveTitlesAndNormalizeNameBasic() {
-        Map<String, List<String>> titles = new HashMap<>();
-        List<String> enTitles = new ArrayList<>();
-        enTitles.add("Mr");
-        titles.put("en", enTitles);
+	/** Mocked Spring environment supplying normalization properties. */
+	@Mock
+	private Environment env;
 
-        // no normalization patterns configured
-        when(env.getProperty(anyString())).thenReturn(null);
+	/** Instance under test. */
+	@InjectMocks
+	private Normalizer_V_1_0 normalizer;
 
-        String out = normalizer.normalizeName("Mr John Doe", "en", titles);
-        assertEquals("John Doe", out);
-    }
+	/** Default stubbing: no patterns configured and the default {@code =} separator. */
+	@BeforeEach
+	void setUp() {
+		lenient().when(env.getProperty(anyString())).thenReturn(null);
+		lenient().when(env.getProperty(eq(Normalizer_V_1_0.IDA_NORMALISER_SEP), anyString())).thenReturn("=");
+	}
 
-    @Test
-    public void testNormalizeAddressWithPatternReplacement() {
-        // configure environment to return a pattern replacement for first key
-        when(env.getProperty("ida.demo.address.normalization.regex.en[0]")).thenReturn("\\d+=#");
-        when(env.getProperty("ida.norm.sep", "=")).thenReturn("=");
+	/**
+	 * Builds a mutable titles map for one language.
+	 *
+	 * @param language language code
+	 * @param titles   titles for that language
+	 * @return map of language to a mutable titles list
+	 */
+	private static Map<String, List<String>> titles(String language, String... titles) {
+		Map<String, List<String>> map = new HashMap<>();
+		map.put(language, new ArrayList<>(List.of(titles)));
+		return map;
+	}
 
-        String out = normalizer.normalizeAddress("123 Main St", "en");
-        // digits replaced by # => "# Main St"
-        assertTrue(out.startsWith("#"));
-    }
+	/** A configured title is stripped from the name. */
+	@Test
+	void normalizeNameRemovesTitle() {
+		assertEquals("John Doe", normalizer.normalizeName("Mr John Doe", "en", titles("en", "Mr")));
+	}
 
+	/** Titles are removed with and without a trailing dot and in any case. */
+	@Test
+	void normalizeNameRemovesTitlesInAllCasesAndWithDot() {
+		String out = normalizer.normalizeName("Mr. JOHN Dr mr DR. MR", "en", titles("en", "Mr", "Dr"));
+		assertEquals("JOHN", out.replaceAll("\\s+", " ").trim());
+	}
 
+	/** Longer titles are removed before shorter ones that are their prefix. */
+	@Test
+	void normalizeNameRemovesLongestTitleFirst() {
+		assertEquals("Smith", normalizer.normalizeName("Mrs Smith", "en", titles("en", "Mr", "Mrs")));
+	}
 
-    @Test
-    public void testGetBasicNormalisersMultiplePatterns() {
-        // provide two patterns: first with sep and replacement, second without sep
-        when(env.getProperty("ida.demo.name.normalization.regex.en[0]")).thenReturn("foo=#");
-        when(env.getProperty("ida.demo.name.normalization.regex.en[1]")).thenReturn("bar");
-        when(env.getProperty("ida.norm.sep", "=")).thenReturn("=");
+	/** Titles of a different language are not applied. */
+	@Test
+	void normalizeNameIgnoresTitlesOfOtherLanguage() {
+		assertEquals("Mr John", normalizer.normalizeName("Mr John", "en", titles("fr", "Mr")));
+	}
 
-        // call private method via reflection
-        try {
-            java.lang.reflect.Method m = Normalizer_V_1_0.class.getDeclaredMethod("getBasicNormalisers", String.class);
-            m.setAccessible(true);
-            @SuppressWarnings("unchecked")
-            Map<Pattern, String> map = (Map<Pattern, String>) m.invoke(normalizer, "ida.demo.name.normalization.regex.en[%s]");
-            // expect both patterns present
-            assertEquals(2, map.size());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+	/** Language-specific, {@code any} and {@code common} patterns are all applied. */
+	@Test
+	void normalizeNameAppliesLanguageAnyAndCommonPatterns() {
+		lenient().when(env.getProperty(NAME_EN_0)).thenReturn("john=J");
+		lenient().when(env.getProperty("ida.demo.name.normalization.regex.any[0]")).thenReturn("doe=D");
+		lenient().when(env.getProperty("ida.demo.common.normalization.regex.en[0]")).thenReturn("-= ");
+		lenient().when(env.getProperty("ida.demo.common.normalization.regex.any[0]")).thenReturn("\\s+= ");
 
-    @Test
-    public void testGetBasicNormalisersAddressEmptyReplacementAndNormalizeAddress() {
-        // pattern with sep but empty replacement
-        when(env.getProperty("ida.demo.address.normalization.regex.en[0]")).thenReturn("\\d+=");
-        when(env.getProperty("ida.norm.sep", "=")).thenReturn("=");
+		assertEquals("J D X", normalizer.normalizeName("john-doe   X", "en", new HashMap<>()));
+	}
 
-        try {
-            java.lang.reflect.Method m = Normalizer_V_1_0.class.getDeclaredMethod("getBasicNormalisers", String.class);
-            m.setAccessible(true);
-            @SuppressWarnings("unchecked")
-            Map<Pattern, String> map = (Map<Pattern, String>) m.invoke(normalizer, "ida.demo.address.normalization.regex.en[%s]");
-            // expect at least one pattern present
-            assertTrue(map.size() >= 1);
-            // now normalize address using this configuration via public API
-            String out = normalizer.normalizeAddress("123 Main St", "en");
-            // digits removed -> should contain 'Main'
-            assertTrue(out.contains("Main") || out.contains("main"));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+	/** Multiple indexed patterns are read until the first missing index. */
+	@Test
+	void normalizeNameReadsIndexedPatternsUntilGap() {
+		lenient().when(env.getProperty(NAME_EN_0)).thenReturn("a=1");
+		lenient().when(env.getProperty(NAME_EN_1)).thenReturn("b=2");
+		lenient().when(env.getProperty("ida.demo.name.normalization.regex.en[3]")).thenReturn("c=3");
 
-    @Test
-    public void testNormalizeNameWithCommonAndAnyPatterns() {
-        // configure patterns across name and common to ensure normalizeWithCommonAttributes merges them
-        when(env.getProperty("ida.demo.name.normalization.regex.en[0]")).thenReturn("john=J");
-        when(env.getProperty("ida.demo.name.normalization.regex.any[0]")).thenReturn("doe=D");
-        when(env.getProperty("ida.demo.common.normalization.regex.en[0]")).thenReturn(null);
-        when(env.getProperty("ida.norm.sep", "=")).thenReturn("=");
+		assertEquals("12c", normalizer.normalizeName("abc", "en", new HashMap<>()));
+	}
 
-        Map<String, List<String>> titles = new HashMap<>();
-        String out = normalizer.normalizeName("john doe", "en", titles);
-        // both replacements applied
-        assertTrue(out.contains("J") || out.contains("D"));
-    }
+	/** Reading stops at the 1000-entry limit even when every index is configured. */
+	@Test
+	void readsAtMostNormalizerConfigLimitEntries() {
+		lenient().when(env.getProperty(startsWith("ida.demo.name.normalization.regex.en["))).thenReturn("q=");
 
-    @Test
-    public void testNormalizeNameRemoveAllCasesVariousCasingsAndPunctuation() {
-        Map<String, List<String>> titles = new HashMap<>();
-        List<String> enTitles = new ArrayList<>();
-        enTitles.add("Mr");
-        enTitles.add("Dr");
-        titles.put("en", enTitles);
+		assertEquals("abc", normalizer.normalizeName("abc", "en", new HashMap<>()));
+		verify(env).getProperty("ida.demo.name.normalization.regex.en[999]");
+		verify(env, never()).getProperty("ida.demo.name.normalization.regex.en[1000]");
+	}
 
-        // no normalization patterns configured
-        when(env.getProperty(anyString())).thenReturn(null);
+	/** A pattern without a separator deletes its matches. */
+	@Test
+	void patternWithoutSeparatorRemovesMatches() {
+		lenient().when(env.getProperty(NAME_EN_0)).thenReturn("[.,]");
 
-        // create a name with multiple occurrences, different casings and punctuation
-        String input = "Mr. JOHN Dr mr DR. Mr";
-        String out = normalizer.normalizeName(input, "en", titles);
-        // all title tokens should be removed, leaving only JOHN
-        assertTrue(out.trim().equalsIgnoreCase("john") || out.trim().contains("john"));
-    }
+		assertEquals("John Doe", normalizer.normalizeName("John., Doe", "en", new HashMap<>()));
+	}
 
-    @Test
-    public void testNormalizeNameRemoveAllCasesRepeatedOccurrences() {
-        Map<String, List<String>> titles = new HashMap<>();
-        List<String> enTitles = new ArrayList<>();
-        enTitles.add("Hon");
-        titles.put("en", enTitles);
+	/** A pattern with a separator but empty replacement deletes its matches. */
+	@Test
+	void patternWithEmptyReplacementRemovesMatches() {
+		lenient().when(env.getProperty(ADDRESS_EN_0)).thenReturn("\\d+=");
 
-        when(env.getProperty(anyString())).thenReturn(null);
+		assertEquals("Main St", normalizer.normalizeAddress("123 Main St", "en"));
+	}
 
-        String input = "Hon Hon. HON honHon Hon.";
-        String out = normalizer.normalizeName(input, "en", titles);
-        // after removing Hon variants, result should be 'honHon' normalized to keep unmatched sequence
-        String normalized = out.trim().toLowerCase();
-        assertTrue("Should not contain 'hon' as separate token", !normalized.matches(".*\\bhon\\b.*"));
-    }
+	/** Address patterns replace every match. */
+	@Test
+	void normalizeAddressReplacesAllMatches() {
+		lenient().when(env.getProperty(ADDRESS_EN_0)).thenReturn("\\d+=#");
 
-    @Test
-    public void testNormalizeHandlesZeroLengthRegexMatchBreaksLoop() {
-        // Configure a regex that matches empty string (start anchor) with replacement 'X'
-        // use a valid zero-length-start regex '^' with replacement
-        when(env.getProperty("ida.demo.name.normalization.regex.en[0]")).thenReturn("^=X");
-        when(env.getProperty("ida.norm.sep", "=")).thenReturn("=");
+		assertEquals("# Main St, #", normalizer.normalizeAddress("123 Main St, 45", "en"));
+	}
 
-        Map<String, List<String>> titles = new HashMap<>();
-        String out = normalizer.normalizeName("abc", "en", titles);
-        // zero-length match case: implementation breaks and should not loop infinitely; output should be trimmed string
-        assertTrue(out != null && out.length() >= 0);
-    }
+	/** A custom separator configured via {@code ida.norm.sep} is honoured. */
+	@Test
+	void customSeparatorIsHonoured() {
+		lenient().when(env.getProperty(eq(Normalizer_V_1_0.IDA_NORMALISER_SEP), anyString())).thenReturn("::");
+		lenient().when(env.getProperty(ADDRESS_EN_0)).thenReturn("street::St");
 
-    @Test
-    public void testRemoveAllCasesCoversOriginalLowerUpperIndexes() {
-        // Prepare titles list with one title
-        Map<String, List<String>> titles = new HashMap<>();
-        List<String> enTitles = new ArrayList<>();
-        enTitles.add("Sr");
-        titles.put("en", enTitles);
+		assertEquals("Main St", normalizer.normalizeAddress("Main street", "en"));
+	}
 
-        // no normalisers
-        when(env.getProperty(anyString())).thenReturn(null);
+	/** A replacement containing the pattern is not re-matched (no infinite loop). */
+	@Test
+	void replacementIsNotRematched() {
+		lenient().when(env.getProperty(ADDRESS_EN_0)).thenReturn("a=aa");
 
-        // craft a name that contains the title in different forms to exercise index checks
-        String input = "Sr. sr SR Sr";
-        String out = normalizer.normalizeName(input, "en", titles);
-        // all title tokens removed
-        assertTrue(!out.toLowerCase().contains("sr"));
-    }
+		assertEquals("aabaa", normalizer.normalizeAddress("aba", "en"));
+	}
+
+	/** A zero-length match stops processing that pattern instead of looping. */
+	@Test
+	void zeroLengthMatchStopsPattern() {
+		lenient().when(env.getProperty(NAME_EN_0)).thenReturn("^=X");
+
+		assertEquals("abc", normalizer.normalizeName("abc", "en", new HashMap<>()));
+	}
+
+	/** Unicode character classes are enabled for patterns. */
+	@Test
+	void unicodeCharacterClassIsEnabled() {
+		lenient().when(env.getProperty(NAME_EN_0)).thenReturn("\\W+= ");
+
+		assertEquals("José Müller", normalizer.normalizeName("José--Müller", "en", new HashMap<>()));
+	}
+
+	/** Result is trimmed. */
+	@Test
+	void resultIsTrimmed() {
+		assertEquals("Main St", normalizer.normalizeAddress("  Main St  ", "en"));
+	}
 }

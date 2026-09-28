@@ -1,32 +1,46 @@
+# ── Build output ──────────────────────────────────────────────
+target/
+bin/
+tmp/
 *.class
-.mtj.tmp/
 *.war
 *.ear
+.mtj.tmp/
 hs_err_pid*
-target/
-.springBeans
-.metadata
-.factorypath
+
+# ── Local runner (run-local.bat / run-local.sh) ───────────────
+.local/
+**/.local/
+logs/
+*.log
+
+# ── Eclipse / STS ─────────────────────────────────────────────
 .classpath
 .project
 .settings/
+*/.classpath
+*/.project
+*/.settings/
+.metadata
+.factorypath
+.springBeans
+.loadpath
+.recommenders/
+/.recommenders/
+
+# ── IntelliJ / VS Code / SonarLint ────────────────────────────
+.idea/
+**/*.iml
+.vscode
+.sonarlint/
+
+# ── Misc ──────────────────────────────────────────────────────
 .vertx/
-bin/
-tmp/
-logs/
 *.tmp
 *.bak
 *.swp
 *~.nib
 local.properties
-.loadpath
 .DS_Store
 test.txt
-.idea/
-.settings/
-.sonarlint/
-.recommenders/
-/.recommenders/
-**/*.iml
-.vscode
 authentication-demo-ui/keys/

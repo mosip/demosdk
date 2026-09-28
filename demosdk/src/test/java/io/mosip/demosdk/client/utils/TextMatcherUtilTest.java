@@ -1,36 +1,47 @@
 package io.mosip.demosdk.client.utils;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.codec.EncoderException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class TextMatcherUtilTest {
+/**
+ * Unit tests for {@link TextMatcherUtil#phoneticsMatch(String, String, String)}.
+ */
+class TextMatcherUtilTest {
 
-    @Test
-    public void testPhoneticsMatchIdenticalStringsReturnsPositiveMultipleOf20() throws EncoderException {
-        Integer v = TextMatcherUtil.phoneticsMatch("John", "John", "english");
-        assertNotNull(v);
-        assertTrue(v > 0);
-        assertEquals(0, v.intValue() % 20);
-        assertTrue(v >= 20 && v <= 100);
-    }
+	/** Identical strings give the maximum score. */
+	@Test
+	void identicalStringsReturn100() throws EncoderException {
+		assertEquals(100, TextMatcherUtil.phoneticsMatch("John", "John", "english").intValue());
+	}
 
-    @Test
-    public void testPhoneticsMatchDifferentStringsReturnsValueInExpectedRange() throws EncoderException {
-        Integer v1 = TextMatcherUtil.phoneticsMatch("John", "John", "english");
-        Integer v2 = TextMatcherUtil.phoneticsMatch("John", "Doe", "english");
-        assertNotNull(v1);
-        assertNotNull(v2);
-        assertEquals(0, v1.intValue() % 20);
-        assertEquals(0, v2.intValue() % 20);
-        assertTrue(v1 >= 20 && v1 <= 100);
-        assertTrue(v2 >= 20 && v2 <= 100);
-    }
+	/** Phonetically similar spellings score high. */
+	@Test
+	void similarSoundingNamesScoreHigh() throws EncoderException {
+		int score = TextMatcherUtil.phoneticsMatch("Smith", "Smyth", "english");
+		assertTrue(score >= 80, "expected >= 80 but was " + score);
+	}
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testPhoneticsMatchNullInputsThrows() throws EncoderException {
-        TextMatcherUtil.phoneticsMatch(null, null, null);
-    }
+	/** Every score is a multiple of 20 in the range 20..100. */
+	@Test
+	void scoreIsMultipleOf20InRange() throws EncoderException {
+		int score = TextMatcherUtil.phoneticsMatch("John", "Doe", "english");
+		assertEquals(0, score % 20);
+		assertTrue(score >= 20 && score <= 100, "out of range: " + score);
+	}
+
+	/** A language unknown to BeiderMorse is rejected. */
+	@Test
+	void unknownLanguageThrows() {
+		assertThrows(IllegalArgumentException.class, () -> TextMatcherUtil.phoneticsMatch("Anna", "Anna", "xx"));
+	}
+
+	/** {@code null} arguments are rejected. */
+	@Test
+	void nullInputsThrow() {
+		assertThrows(IllegalArgumentException.class, () -> TextMatcherUtil.phoneticsMatch(null, null, null));
+	}
 }
-
