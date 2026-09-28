@@ -6,7 +6,7 @@
 	  - IDemoApi         → Client_V_1_0      (exact / partial / phonetic match, score 0–100)
 	  - IDemoNormalizer  → Normalizer_V_1_0  (regex-driven name / address normalization)
 
-	Build policy (aligned with mosip/bio-utils and mosip/converters 1.4.1-SNAPSHOT):
+	Build policy:
 	  - Parent: org.springframework.boot:spring-boot-starter-parent 4.1.1 (dependency + plugin management).
 	  - Java 21.
 	  - NO kernel-bom. kernel-core is pinned directly via ${kernel.core.version}.
@@ -28,7 +28,6 @@
 	<!--
 		Spring Boot 4.1.1 parent: supplies managed versions for Spring Framework 7.0.x,
 		commons-codec, JUnit Jupiter, Mockito, Logback, Jackson 2/3 and all core Maven plugins.
-		Same parent as mosip/bio-utils and mosip/converters.
 	-->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -63,7 +62,7 @@
 		<argLine />
 		<skipTests>false</skipTests>
 
-		<!-- ── Maven plugins & build tooling (same versions as mosip/bio-utils) ─ -->
+		<!-- ── Maven plugins & build tooling (latest GA on Maven Central) ─ -->
 		<maven.compiler.plugin.version>3.16.0</maven.compiler.plugin.version>
 		<maven.jar.plugin.version>3.5.1</maven.jar.plugin.version>
 		<maven.surefire.plugin.version>3.6.0</maven.surefire.plugin.version>
