@@ -1,8 +1,33 @@
-# Demographic SDK
-This library is used for demographic authentication in [ID-Authentication](https://github.com/mosip/id-authentication/tree/master/authentication). 
-This SDK have impelmentations for demographic data match for [IDemoApi](https://github.com/mosip/commons/blob/master/kernel/kernel-demographics-api/src/main/java/io/mosip/kernel/demographics/spi/IDemoApi.java) 
-and implementation of the name and address normilzations for [IDemoNormalizer](https://github.com/mosip/commons/blob/master/kernel/kernel-demographics-api/src/main/java/io/mosip/kernel/demographics/spi/IDemoNormalizer.java).
+# demosdk (Maven module)
+
+Reference demographic matching and normalization library for
+[MOSIP ID-Authentication](https://github.com/mosip/id-authentication).
+
+| | |
+|---|---|
+| Coordinates | `io.mosip.demosdk:demosdk` (version in `pom.xml`) |
+| Parent | `spring-boot-starter-parent` 4.1.1 · Java 21 · no `kernel-bom` |
+| Implements | `IDemoApi` → `Client_V_1_0`, `IDemoNormalizer` → `Normalizer_V_1_0` |
+| Needs | `io.mosip.kernel:kernel-core` (`kernel.core.version` in `pom.xml`) |
+
+## Build
+
+```bash
+./run-local.sh all          # Linux / macOS / Git Bash
+run-local.bat all           # Windows cmd
+```
+
+Other commands: `init`, `test`, `coverage`, `install`, `javadoc`, `deps`, `sonar`, `clean`.
+Run a script without arguments to see the full list.
 
 ## Configuration
-The default Demo-SDK reference implemantation has configurations for normalizing name and address for english language, which can be extended for any other languages. 
-Refer to `id-authentication-default.properties` configuration file.
+
+Normalization rules are Spring properties:
+
+```properties
+ida.demo.<name|address|common>.normalization.regex.<language|any>[<index>]=<regex>=<replacement>
+ida.norm.sep==
+```
+
+See the [root README](../README.md#configuration) for the full rules and examples, and
+`id-authentication-default.properties` in the MOSIP config repository for the defaults.

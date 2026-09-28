@@ -1,107 +1,133 @@
 package io.mosip.demosdk.client.impl.spec_1_0;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mockStatic;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.codec.EncoderException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import io.mosip.demosdk.client.utils.TextMatcherUtil;
 
-public class ClientV1UnitTest {
+/**
+ * Unit tests for {@link Client_V_1_0}: exact, partial and phonetic matching plus {@code init}.
+ */
+class ClientV1UnitTest {
 
-    private final Client_V_1_0 client = new Client_V_1_0();
-    private MockedStatic<TextMatcherUtil> mockedStatic;
+	/** Empty flags map; flags are ignored by the implementation. */
+	private static final Map<String, String> NO_FLAGS = Map.of();
 
-    @Before
-    public void initMocks() {
-        // prepare static mock for TextMatcherUtil
-        mockedStatic = mockStatic(TextMatcherUtil.class);
-    }
+	/** Instance under test (stateless). */
+	private final Client_V_1_0 client = new Client_V_1_0();
 
-    @After
-    public void tearDown() {
-        if (mockedStatic != null) {
-            mockedStatic.close();
-        }
-    }
+	/** Identical values give a full exact match. */
+	@Test
+	void exactMatchSameStringsReturns100() {
+		assertEquals(Client_V_1_0.EXACT_MATCH_VALUE, client.doExactMatch("John Doe", "John Doe", NO_FLAGS));
+	}
 
-    @Test
-    public void testDoExactMatchSameStringsReturns100() {
-        int v = client.doExactMatch("John Doe", "John Doe", new HashMap<>());
-        assertEquals("Exact match should return 100", Client_V_1_0.EXACT_MATCH_VALUE, v);
-    }
+	/** Exact match ignores token order. */
+	@Test
+	void exactMatchDifferentOrderReturns100() {
+		assertEquals(Client_V_1_0.EXACT_MATCH_VALUE, client.doExactMatch("John Doe", "Doe John", NO_FLAGS));
+	}
 
-    @Test
-    public void testDoExactMatchDifferentOrderReturns100() {
-        int v = client.doExactMatch("John Doe", "Doe John", new HashMap<>());
-        assertEquals("Exact match should be order-insensitive and return 100", Client_V_1_0.EXACT_MATCH_VALUE, v);
-    }
+	/** Exact match ignores case and extra whitespace. */
+	@Test
+	void exactMatchIgnoresCaseAndWhitespace() {
+		assertEquals(Client_V_1_0.EXACT_MATCH_VALUE, client.doExactMatch("  JOHN   doe ", "john DOE", NO_FLAGS));
+	}
 
-    @Test
-    public void testDoExactMatchDifferentSizeReturns0() {
-        int v = client.doExactMatch("John Doe", "John", new HashMap<>());
-        assertEquals("Different sizes should not be exact match", 0, v);
-    }
+	/** Different token counts never match exactly. */
+	@Test
+	void exactMatchDifferentSizeReturns0() {
+		assertEquals(0, client.doExactMatch("John Doe", "John", NO_FLAGS));
+	}
 
-    @Test
-    public void testDoPartialMatchOneMatchReturns50() {
-        int v = client.doPartialMatch("John", "John Doe", new HashMap<>());
-        // matchedList.size() = 1, originalEntityInfoList.size() = 2 => 1*100/(2+0) = 50
-        assertEquals("Partial match should compute proportional value", 50, v);
-    }
+	/** Same token count but a differing token gives no exact match. */
+	@Test
+	void exactMatchSameSizeButDifferentTokenReturns0() {
+		assertEquals(0, client.doExactMatch("A B", "A C", NO_FLAGS));
+	}
 
-    @Test
-    public void testDoPartialMatchSingleCharPrefixMatchingStartsWith() {
-        // ref has single char token 'J' that should match entity word starting with 'J'
-        int v = client.doPartialMatch("J", "John", new HashMap<>());
-        // matchedList will be empty but unmatchedList size 1, originalEntityInfoList size 1 => 0*100/(1+0)=0
-        assertEquals(0, v);
-    }
+	/** Two empty values are treated as an exact match (both token lists are empty). */
+	@Test
+	void exactMatchEmptyStringsReturns100() {
+		assertEquals(Client_V_1_0.EXACT_MATCH_VALUE, client.doExactMatch("", "", NO_FLAGS));
+	}
 
-    @Test
-    public void testDoPartialMatch_singleCharPrefixFoundMatchReturns50() {
-        int v = client.doPartialMatch("J Doe", "John Doe", new HashMap<>());
-        // matchedList.size() = 1 (Doe), originalEntityInfoList.size() = 2 => 1*100/(2+0) = 50
-        assertEquals(50, v);
-    }
+	/** One of two entity tokens matched: 1 * 100 / (2 + 0) = 50. */
+	@Test
+	void partialMatchOneOfTwoReturns50() {
+		assertEquals(50, client.doPartialMatch("John", "John Doe", NO_FLAGS));
+	}
 
-    @Test
-    public void testDoExactMatchSameSizeButNotAllMatchReturns0() {
-        int v = client.doExactMatch("A B", "A C", new HashMap<>());
-        assertEquals(0, v);
-    }
+	/** All tokens matched: full score. */
+	@Test
+	void partialMatchAllTokensReturns100() {
+		assertEquals(100, client.doPartialMatch("doe john", "John Doe", NO_FLAGS));
+	}
 
-    @Test
-    public void testDoExactMatchWithNullsReturns100() {
-        // passing empty strings instead of null to avoid NPE from production code
-        int v = client.doExactMatch("", "", new HashMap<>());
-        assertEquals(Client_V_1_0.EXACT_MATCH_VALUE, v);
-    }
+	/** An initial alone is not a matched token: 0 * 100 / (1 + 0) = 0. */
+	@Test
+	void partialMatchInitialOnlyReturns0() {
+		assertEquals(0, client.doPartialMatch("J", "John", NO_FLAGS));
+	}
 
-    @Test
-    public void testDoPhoneticsMatchCallsTextMatcherUtil() throws EncoderException {
-        mockedStatic.when(() -> TextMatcherUtil.phoneticsMatch("abc", "abc", "en")).thenReturn(100);
-        int val = client.doPhoneticsMatch("abc", "abc", "en", new HashMap<>());
-        assertEquals(100, val);
-    }
+	/** An initial removes its penalty: 1 * 100 / (2 + 0) = 50. */
+	@Test
+	void partialMatchInitialPlusTokenReturns50() {
+		assertEquals(50, client.doPartialMatch("J Doe", "John Doe", NO_FLAGS));
+	}
 
-    @Test
-    public void testDoPhoneticsMatchHandlesEncoderException() throws Exception {
-        mockedStatic.when(() -> TextMatcherUtil.phoneticsMatch("x", "y", "en")).thenThrow(new EncoderException("boom"));
-        int val = client.doPhoneticsMatch("x", "y", "en", new HashMap<>());
-        // exception path returns default 0
-        assertEquals(0, val);
-    }
+	/** An initial with no matching entity token stays unmatched: 1 * 100 / (2 + 1) = 33. */
+	@Test
+	void partialMatchUnmatchedInitialPenalises() {
+		assertEquals(33, client.doPartialMatch("X Doe", "John Doe", NO_FLAGS));
+	}
 
-    @Test
-    public void testInit_executesWithoutException() {
-        client.init();
-    }
+	/** An unmatched multi-character token stays unmatched: 1 * 100 / (2 + 1) = 33. */
+	@Test
+	void partialMatchUnmatchedWordPenalises() {
+		assertEquals(33, client.doPartialMatch("Jack Doe", "John Doe", NO_FLAGS));
+	}
+
+	/** A duplicated reference token only consumes one entity token: 1 * 100 / (1 + 1) = 50. */
+	@Test
+	void partialMatchDuplicateReferenceTokenCountsOnce() {
+		assertEquals(50, client.doPartialMatch("doe doe", "Doe", NO_FLAGS));
+	}
+
+	/** Phonetic match returns the score computed by {@link TextMatcherUtil}. */
+	@Test
+	void phoneticsMatchDelegatesToTextMatcherUtil() {
+		try (MockedStatic<TextMatcherUtil> util = mockStatic(TextMatcherUtil.class)) {
+			util.when(() -> TextMatcherUtil.phoneticsMatch("abc", "abc", "en")).thenReturn(100);
+			assertEquals(100, client.doPhoneticsMatch("abc", "abc", "en", NO_FLAGS));
+		}
+	}
+
+	/** An {@link EncoderException} is logged and yields a score of 0. */
+	@Test
+	void phoneticsMatchEncoderExceptionReturns0() {
+		try (MockedStatic<TextMatcherUtil> util = mockStatic(TextMatcherUtil.class)) {
+			util.when(() -> TextMatcherUtil.phoneticsMatch("x", "y", "en")).thenThrow(new EncoderException("boom"));
+			assertEquals(0, client.doPhoneticsMatch("x", "y", "en", NO_FLAGS));
+		}
+	}
+
+	/** Real phonetic match of identical names gives the maximum score. */
+	@Test
+	void phoneticsMatchRealIdenticalNamesReturns100() {
+		assertEquals(100, client.doPhoneticsMatch("John", "John", "english", NO_FLAGS));
+	}
+
+	/** {@code init} only logs and must not throw. */
+	@Test
+	void initDoesNotThrow() {
+		assertDoesNotThrow(client::init);
+	}
 }
